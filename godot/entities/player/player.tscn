@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://rddnr2hi8v6v"]
+
+[ext_resource type="Script" uid="uid://dblxw83w48nad" path="res://entities/player/player.gd" id="1_1hmtu"]
+[ext_resource type="PackedScene" uid="uid://bdu2m58boi1ke" path="res://entities/player/interactions/interaction_raycast.tscn" id="2_635qg"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0qees"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ucweq"]
+
+[sub_resource type="GDScript" id="GDScript_635qg"]
+script/source = "extends Camera3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="Player" type="CharacterBody3D" unique_id=418510005 groups=["player"]]
+script = ExtResource("1_1hmtu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2092144773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_0qees")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1042460372]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ucweq")
+
+[node name="CameraController" type="Node3D" parent="." unique_id=228305935]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5779645, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=1518766996]
+script = SubResource("GDScript_635qg")
+
+[node name="InteractionRaycast" parent="CameraController" unique_id=44247632 instance=ExtResource("2_635qg")]
+target_position = Vector3(0, 0, -4)
+
+[node name="HUD" type="Node" parent="." unique_id=1020597396]
+
+[node name="InteractText" type="Label" parent="HUD" unique_id=291721104]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 3
+horizontal_alignment = 1
+
+[node name="GameWonLabel" type="Label" parent="HUD" unique_id=419381583]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "You Win!"
+horizontal_alignment = 1
